@@ -87,7 +87,25 @@ const MDXChildTemplate = ({ Component, source, toc = [], index = 0, id }) => {
     ensureID(toc);
   }
 
-  const isComponentCodeDocs = ['react', 'react-demos', 'html', 'html-demos', 'react-templates'].includes(source);
+  // Markdown sourced from component/code repos needs editorial paragraph spacing.
+  const isProseContent = [
+    'react',
+    'react-next',
+    'react-deprecated',
+    'react-demos',
+    'react-templates',
+    'html',
+    'html-demos',
+    'html-deprecated',
+    'ECharts-docs',
+    'ECharts',
+    'ECharts-next',
+    '-Victory',
+    '-Victory-next',
+    'ai-guidelines',
+    'extensions',
+    'components'
+  ].includes(source);
 
   const InlineAlerts = (optIn ||
     beta ||
@@ -134,14 +152,18 @@ const MDXChildTemplate = ({ Component, source, toc = [], index = 0, id }) => {
   );
   // Create dynamic component for @reach/router
   const ChildComponent = () => (
-    <div className={source !== 'landing-pages' ? 'pf-v6-l-flex pf-v6-m-column pf-m-nowrap-on-2xl' : ''} data-content-source={source}>
+    <div
+      className={source !== 'landing-pages' ? 'pf-v6-l-flex pf-v6-m-column pf-m-nowrap-on-2xl' : ''}
+      data-content-source={source}
+      {...(isProseContent && { 'data-prose-content': true })}
+    >
       {toc.length > 1 && <TableOfContents items={toc} />}
-      <Stack hasGutter className={(source !== 'landing-pages' && 'ws-example-page-wrapper')}>
+      <Stack hasGutter={!isProseContent} className={(source !== 'landing-pages' && 'ws-example-page-wrapper')}>
         {InlineAlerts}
         {source !== 'css-variables' && <Component />}
         {source !== 'css-variables' && functionDocumentation.length > 0 && (
           <StackItem>
-            <AutoLinkHeader headingLevel="h2" className="pf-v6-c-content--h2" id="functions">
+            <AutoLinkHeader headingLevel="h2" className="pf-v6-c-content--h2 ws-stack-section-heading" id="functions">
               Functions
             </AutoLinkHeader>
             <FunctionsTable functionDescriptions={functionDocumentation} />
@@ -149,7 +171,7 @@ const MDXChildTemplate = ({ Component, source, toc = [], index = 0, id }) => {
         )}
         {source !== 'css-variables' && propsTitle && (
           <StackItem>
-            <AutoLinkHeader headingLevel="h2" className="pf-v6-c-content--h2" id="props">
+            <AutoLinkHeader headingLevel="h2" className="pf-v6-c-content--h2 ws-stack-section-heading" id="props">
               {propsTitle}
             </AutoLinkHeader>
             {propComponents.map((component) => (
@@ -165,7 +187,7 @@ const MDXChildTemplate = ({ Component, source, toc = [], index = 0, id }) => {
         )}
         {source === 'css-variables' && cssPrefix.length > 0 && (
           <StackItem>
-            <AutoLinkHeader headingLevel="h2" className="pf-v6-c-content--h2" id="css-variables">
+            <AutoLinkHeader headingLevel="h2" className="pf-v6-c-content--h2 ws-stack-section-heading" id="css-variables">
               {cssVarsTitle}
             </AutoLinkHeader>
             {cssPrefix.map((prefix, index) => (

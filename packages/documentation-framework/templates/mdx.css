@@ -1,7 +1,25 @@
 @import './content-sources/ai-guidelines.css';
 
+/* Org docs rely on Stack hasGutter for block spacing; suppress paragraph margins. */
 p.pf-v6-c-content--p.ws-p {
   margin: 0;
+}
+
+/* Component/code docs and other prose-heavy sources need editorial paragraph spacing. */
+[data-prose-content] p.pf-v6-c-content--p.ws-p {
+  margin-block-end: var(--pf-v6-c-content--MarginBlockEnd);
+}
+
+/* Org docs: Stack gutter handles spacing before template sections; not content headings. */
+:not([data-prose-content]) .ws-example-page-wrapper.pf-m-gutter .ws-stack-section-heading {
+  margin-block-start: 0;
+}
+
+/* Prose docs: editorial heading spacing (Stack hasGutter is off; typography handles rhythm). */
+[data-prose-content] .ws-heading.ws-h2,
+[data-prose-content] .ws-heading.ws-h3,
+[data-prose-content] .ws-heading.ws-h4 {
+  margin-block-end: var(--pf-t--global--spacer--lg);
 }
 
 .ws-code {
