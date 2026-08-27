@@ -87,26 +87,6 @@ const MDXChildTemplate = ({ Component, source, toc = [], index = 0, id }) => {
     ensureID(toc);
   }
 
-  // Markdown sourced from component/code repos needs editorial paragraph spacing.
-  const isProseContent = [
-    'react',
-    'react-next',
-    'react-deprecated',
-    'react-demos',
-    'react-templates',
-    'html',
-    'html-demos',
-    'html-deprecated',
-    'ECharts-docs',
-    'ECharts',
-    'ECharts-next',
-    '-Victory',
-    '-Victory-next',
-    'ai-guidelines',
-    'extensions',
-    'components'
-  ].includes(source);
-
   const InlineAlerts = (optIn ||
     beta ||
     deprecated ||
@@ -155,10 +135,9 @@ const MDXChildTemplate = ({ Component, source, toc = [], index = 0, id }) => {
     <div
       className={source !== 'landing-pages' ? 'pf-v6-l-flex pf-v6-m-column pf-m-nowrap-on-2xl' : ''}
       data-content-source={source}
-      {...(isProseContent && { 'data-prose-content': true })}
     >
       {toc.length > 1 && <TableOfContents items={toc} />}
-      <Stack hasGutter={!isProseContent} className={(source !== 'landing-pages' && 'ws-example-page-wrapper')}>
+      <Stack hasGutter className={source !== 'landing-pages' && 'ws-example-page-wrapper'}>
         {InlineAlerts}
         {source !== 'css-variables' && <Component />}
         {source !== 'css-variables' && functionDocumentation.length > 0 && (

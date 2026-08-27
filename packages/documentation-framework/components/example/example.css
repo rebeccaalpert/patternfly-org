@@ -6,11 +6,6 @@
   --pf-v6-c-code-editor__header--before--BorderBottomWidth: 0;
 }
 
-/* Code editor: space before the next block (e.g. section heading). */
-[data-prose-content] .ws-code-editor:has(.pf-v6-c-code-editor__header-content:last-child) {
-  margin-block-end: var(--pf-t--global--spacer--lg);
-}
-
 .ws-code-editor-control {
   --pf-v6-c-button--m-control--BackgroundColor: transparent;
   --pf-v6-c-button--m-control--active--BackgroundColor: transparent;
