@@ -354,7 +354,7 @@ export const Example = ({
   return (
     <Stack hasGutter>
       <Stack hasGutter>
-        <AutoLinkHeader metaText={metaText} headingLevel="h3">
+        <AutoLinkHeader metaText={metaText} headingLevel="h3" className="ws-example-heading">
           {title}
         </AutoLinkHeader>
         {children}
